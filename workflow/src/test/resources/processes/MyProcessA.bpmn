@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://eagletsoft.com/atlas" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1592532743046" name="" targetNamespace="http://eagletsoft.com/atlas" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process activiti:candidateStarterGroups="role1,role2" id="myProcess2" isClosed="false" isExecutable="true" name="My process 2" processType="None">
+    <startEvent id="startevent1" name="Start"/>
+    <userTask activiti:candidateUsers="#manager" activiti:exclusive="true" id="task2" name="财务审批"/>
+    <userTask activiti:candidateUsers="$supervisor" activiti:exclusive="true" id="task1" name="主管审批"/>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="task1"/>
+    <endEvent id="endevent1" name="End"/>
+    <endEvent id="terminateendevent1" name="TerminateEndEvent">
+      <terminateEventDefinition id="terminateendevent1_ED_1"/>
+    </endEvent>
+    <exclusiveGateway default="approvedFlow" gatewayDirection="Unspecified" id="exclusivegateway1" name="Exclusive Gateway"/>
+    <sequenceFlow id="flow3" sourceRef="task2" targetRef="exclusivegateway1"/>
+    <sequenceFlow id="approvedFlow" name="通过" sourceRef="exclusivegateway1" targetRef="endevent1"/>
+    <sequenceFlow id="rejectedFlow" name="拒绝" sourceRef="exclusivegateway1" targetRef="terminateendevent1">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[${approval == false}]]>
+      </conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway default="flow6" gatewayDirection="Unspecified" id="exclusivegateway2" name="Exclusive Gateway"/>
+    <sequenceFlow id="flow4" sourceRef="task1" targetRef="exclusivegateway2"/>
+    <sequenceFlow id="flow6" name="通过" sourceRef="exclusivegateway2" targetRef="task2"/>
+    <sequenceFlow id="flow7" name="拒绝" sourceRef="exclusivegateway2" targetRef="terminateendevent1">
+      <conditionExpression xsi:type="tFormalExpression">
+        <![CDATA[${approval == false}]]>
+      </conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="myProcess2">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="Shape-startevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="350.0" y="70.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task2" id="Shape-task2">
+        <omgdc:Bounds height="55.0" width="105.0" x="315.0" y="300.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task1" id="Shape-task1">
+        <omgdc:Bounds height="55.0" width="105.0" x="315.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="Shape-endevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="350.0" y="460.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="terminateendevent1" id="Shape-terminateendevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="486.0" y="383.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="Shape-exclusivegateway1" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="347.0" y="380.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="Shape-exclusivegateway2" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="347.0" y="224.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="rejectedFlow" id="BPMNEdge_rejectedFlow" sourceElement="exclusivegateway1" targetElement="terminateendevent1">
+        <omgdi:waypoint x="379.0" y="396.0"/>
+        <omgdi:waypoint x="486.0" y="399.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="22.0" x="387.0" y="400.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1" sourceElement="startevent1" targetElement="task1">
+        <omgdi:waypoint x="366.0" y="102.0"/>
+        <omgdi:waypoint x="366.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="approvedFlow" id="BPMNEdge_approvedFlow" sourceElement="exclusivegateway1" targetElement="endevent1">
+        <omgdi:waypoint x="364.5" y="410.5"/>
+        <omgdi:waypoint x="364.5" y="460.070467677926"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="100.0" x="367.0" y="420.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3" sourceElement="task2" targetElement="exclusivegateway1">
+        <omgdi:waypoint x="363.0" y="355.0"/>
+        <omgdi:waypoint x="363.0" y="380.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4" sourceElement="task1" targetElement="exclusivegateway2">
+        <omgdi:waypoint x="363.0" y="195.0"/>
+        <omgdi:waypoint x="363.0" y="224.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6" sourceElement="exclusivegateway2" targetElement="task2">
+        <omgdi:waypoint x="363.0" y="256.0"/>
+        <omgdi:waypoint x="363.0" y="300.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="100.0" x="367.0" y="264.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7" sourceElement="exclusivegateway2" targetElement="terminateendevent1">
+        <omgdi:waypoint x="375.0" y="244.0"/>
+        <omgdi:waypoint x="503.0" y="244.0"/>
+        <omgdi:waypoint x="503.0" y="383.0312805773287"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="22.0" x="387.0" y="244.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

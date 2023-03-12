@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MyProcessA.bpmn">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/workflow/src/test/resources/processes/MyProcessA.bpmn.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
